@@ -53,6 +53,7 @@ module Brick.Widgets.FileBrowser
   , FileInfo(..)
   , FileStatus(..)
   , FileType(..)
+
   -- * Making a new file browser
   , newFileBrowser
   , selectNonDirectories
@@ -598,6 +599,31 @@ handleFileBrowserEventNormal e b =
 handleFileBrowserEventCommon :: (Ord n) => Vty.Event -> FileBrowser n -> EventM n (FileBrowser n)
 handleFileBrowserEventCommon e b =
     case e of
+        Vty.EvKey (Vty.KChar 'b') [Vty.MCtrl] -> do
+            let old = b ^. fileBrowserEntriesL
+            new <- listMovePageUp old
+            return $ b & fileBrowserEntriesL .~ new
+        Vty.EvKey (Vty.KChar 'f') [Vty.MCtrl] -> do
+            let old = b ^. fileBrowserEntriesL
+            new <- listMovePageDown old
+            return $ b & fileBrowserEntriesL .~ new
+        Vty.EvKey (Vty.KChar 'd') [Vty.MCtrl] -> do
+            let old = b ^. fileBrowserEntriesL
+            new <- listMoveByPages (0.5::Double) old
+            return $ b & fileBrowserEntriesL .~ new
+        Vty.EvKey (Vty.KChar 'u') [Vty.MCtrl] -> do
+            let old = b ^. fileBrowserEntriesL
+            new <- listMoveByPages (-0.5::Double) old
+            return $ b & fileBrowserEntriesL .~ new
+        Vty.EvKey (Vty.KChar 'g') [] ->
+            return $ b & fileBrowserEntriesL %~ listMoveTo 0
+        Vty.EvKey (Vty.KChar 'G') [] -> do
+            let sz = length (listElements $ b^.fileBrowserEntriesL)
+            return $ b & fileBrowserEntriesL %~ listMoveTo (sz - 1)
+        Vty.EvKey (Vty.KChar 'j') [] ->
+            return $ b & fileBrowserEntriesL %~ listMoveBy 1
+        Vty.EvKey (Vty.KChar 'k') [] ->
+            return $ b & fileBrowserEntriesL %~ listMoveBy (-1)
         Vty.EvKey (Vty.KChar 'n') [Vty.MCtrl] ->
             return $ b & fileBrowserEntriesL %~ listMoveBy 1
         Vty.EvKey (Vty.KChar 'p') [Vty.MCtrl] ->
@@ -777,6 +803,16 @@ fileTypeMatch tys i = maybe False (`elem` tys) $ fileInfoFileType i
 -- regular file with the specified extension. For example, an extension
 -- argument of @"xml"@ would match regular files @test.xml@ and
 -- @TEST.XML@ and it will match directories regardless of name.
+--
+-- This matcher also matches symlinks if and only if their targets are
+-- directories. This is intended to make it possible to use this matcher
+-- to find files with certain extensions, but also support directory
+-- traversal via symlinks.
 fileExtensionMatch :: String -> FileInfo -> Bool
-fileExtensionMatch ext i =
-    ('.' : (toLower <$> ext)) `isSuffixOf` (toLower <$> fileInfoFilename i)
+fileExtensionMatch ext i = case fileInfoFileType i of
+    Just Directory -> True
+    Just RegularFile -> ('.' : (toLower <$> ext)) `isSuffixOf` (toLower <$> fileInfoFilename i)
+    Just SymbolicLink -> case fileInfoLinkTargetType i of
+        Just Directory -> True
+        _ -> False
+    _ -> False

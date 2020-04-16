@@ -1,9 +1,10 @@
 name:                brick
-version:             0.50.1
+version:             0.52.1
 synopsis:            A declarative terminal user interface library
 description:
-  Write terminal applications painlessly with 'brick'! You write an
-  event handler and a drawing function and the library does the rest.
+  Write terminal user interfaces (TUIs) painlessly with 'brick'! You
+  write an event handler and a drawing function and the library does the
+  rest.
   .
   .
   > module Main where
@@ -43,7 +44,32 @@ extra-doc-files:     README.md,
                      docs/guide.rst,
                      docs/samtay-tutorial.md,
                      docs/snake-demo.gif,
-                     CHANGELOG.md
+                     CHANGELOG.md,
+                     docs/programs-screenshots.md,
+                     docs/programs-screenshots/brick-attr-demo.png,
+                     docs/programs-screenshots/brick-border-demo.png,
+                     docs/programs-screenshots/brick-cache-demo.png,
+                     docs/programs-screenshots/brick-custom-event-demo.png,
+                     docs/programs-screenshots/brick-dialog-demo.png,
+                     docs/programs-screenshots/brick-dynamic-border-demo.png,
+                     docs/programs-screenshots/brick-edit-demo.png,
+                     docs/programs-screenshots/brick-file-browser-demo.png,
+                     docs/programs-screenshots/brick-fill-demo.png,
+                     docs/programs-screenshots/brick-form-demo.png,
+                     docs/programs-screenshots/brick-hello-world-demo.png,
+                     docs/programs-screenshots/brick-layer-demo.png,
+                     docs/programs-screenshots/brick-list-demo.png,
+                     docs/programs-screenshots/brick-list-vi-demo.png,
+                     docs/programs-screenshots/brick-markup-demo.png,
+                     docs/programs-screenshots/brick-mouse-demo.png,
+                     docs/programs-screenshots/brick-padding-demo.png,
+                     docs/programs-screenshots/brick-progressbar-demo.png,
+                     docs/programs-screenshots/brick-readme-demo.png,
+                     docs/programs-screenshots/brick-suspend-resume-demo.png,
+                     docs/programs-screenshots/brick-text-wrap-demo.png,
+                     docs/programs-screenshots/brick-theme-demo.png,
+                     docs/programs-screenshots/brick-viewport-scroll-demo.png,
+                     docs/programs-screenshots/brick-visibility-demo.png
 
 Source-Repository head
   type:     git
@@ -55,7 +81,7 @@ Flag demos
 
 library
   default-language:    Haskell2010
-  ghc-options:         -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -Wall -Wcompat -O2
   default-extensions:  CPP
   hs-source-dirs:      src
   exposed-modules:
@@ -93,6 +119,7 @@ library
                        data-clist >= 0.1,
                        directory >= 1.2.5.0,
                        dlist,
+                       exceptions >= 0.10.0,
                        filepath,
                        containers >= 0.5.7,
                        microlens >= 0.3.0.0,
@@ -116,7 +143,7 @@ executable brick-readme-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             ReadmeDemo.hs
@@ -128,7 +155,7 @@ executable brick-file-browser-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             FileBrowserDemo.hs
@@ -141,7 +168,7 @@ executable brick-form-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             FormDemo.hs
@@ -156,7 +183,7 @@ executable brick-text-wrap-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             TextWrapDemo.hs
@@ -169,7 +196,7 @@ executable brick-cache-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             CacheDemo.hs
@@ -184,7 +211,7 @@ executable brick-visibility-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             VisibilityDemo.hs
   build-depends:       base,
@@ -198,7 +225,7 @@ executable brick-viewport-scroll-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   default-extensions:  CPP
   main-is:             ViewportScrollDemo.hs
@@ -212,7 +239,7 @@ executable brick-dialog-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             DialogDemo.hs
   build-depends:       base,
@@ -225,7 +252,7 @@ executable brick-mouse-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             MouseDemo.hs
   build-depends:       base,
@@ -240,7 +267,7 @@ executable brick-layer-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             LayerDemo.hs
   build-depends:       base,
@@ -254,7 +281,7 @@ executable brick-suspend-resume-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             SuspendAndResumeDemo.hs
   build-depends:       base,
@@ -268,7 +295,7 @@ executable brick-padding-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             PaddingDemo.hs
   build-depends:       base,
@@ -281,7 +308,7 @@ executable brick-theme-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             ThemeDemo.hs
   build-depends:       base,
@@ -294,7 +321,7 @@ executable brick-attr-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             AttrDemo.hs
   build-depends:       base,
@@ -307,7 +334,7 @@ executable brick-markup-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             MarkupDemo.hs
   build-depends:       base,
@@ -320,7 +347,7 @@ executable brick-list-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             ListDemo.hs
   build-depends:       base,
@@ -334,7 +361,7 @@ executable brick-list-vi-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             ListViDemo.hs
   build-depends:       base,
@@ -348,7 +375,7 @@ executable brick-custom-event-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             CustomEventDemo.hs
   build-depends:       base,
@@ -362,7 +389,7 @@ executable brick-fill-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             FillDemo.hs
   build-depends:       base,
@@ -375,7 +402,7 @@ executable brick-hello-world-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             HelloWorldDemo.hs
   build-depends:       base,
@@ -388,7 +415,7 @@ executable brick-edit-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-language:    Haskell2010
   main-is:             EditDemo.hs
   build-depends:       base,
@@ -403,7 +430,7 @@ executable brick-border-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-extensions:  CPP
   default-language:    Haskell2010
   main-is:             BorderDemo.hs
@@ -417,7 +444,7 @@ executable brick-dynamic-border-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-extensions:  CPP
   default-language:    Haskell2010
   main-is:             DynamicBorderDemo.hs
@@ -431,7 +458,7 @@ executable brick-progressbar-demo
   if !flag(demos)
     Buildable: False
   hs-source-dirs:      programs
-  ghc-options:         -threaded -Wall -fno-warn-unused-do-bind -O3
+  ghc-options:         -threaded -Wall -Wcompat -O2
   default-extensions:  CPP
   default-language:    Haskell2010
   main-is:             ProgressBarDemo.hs
@@ -444,7 +471,7 @@ executable brick-progressbar-demo
 test-suite brick-tests
   type:                exitcode-stdio-1.0
   hs-source-dirs:      tests
-  ghc-options:         -Wall -O2
+  ghc-options:         -Wall -Wcompat -O2
   if impl(ghc >= 8)
     ghc-options:       -Wno-orphans
   default-language:    Haskell2010

@@ -88,6 +88,10 @@ import Data.Monoid (Monoid(..))
 
 import Lens.Micro (_1, _2, to, (^.), (&), (.~), Lens')
 import Lens.Micro.Type (Getting)
+import Control.Monad.Catch (MonadThrow, MonadCatch, MonadMask)
+#if !MIN_VERSION_base(4,13,0)
+import Control.Monad.Fail (MonadFail)
+#endif
 import Control.Monad.Trans.State.Lazy
 import Control.Monad.Trans.Reader
 import Graphics.Vty (Attr)
@@ -128,7 +132,9 @@ handleEventLensed v target handleEvent ev = do
 newtype EventM n a =
     EventM { runEventM :: ReaderT (EventRO n) (StateT (EventState n) IO) a
            }
-           deriving (Functor, Applicative, Monad, MonadIO)
+           deriving ( Functor, Applicative, Monad, MonadIO
+                    , MonadThrow, MonadCatch, MonadMask, MonadFail
+                    )
 
 -- | Widget size policies. These policies communicate how a widget uses
 -- space when being rendered. These policies influence rendering order

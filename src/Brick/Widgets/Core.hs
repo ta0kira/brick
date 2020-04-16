@@ -91,9 +91,11 @@ module Brick.Widgets.Core
   )
 where
 
-#if MIN_VERSION_base(4,8,0)
+#if !(MIN_VERSION_base(4,11,0))
 import Data.Monoid ((<>))
-#else
+#endif
+
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
 import Data.Monoid ((<>), mempty)
 #endif
@@ -281,7 +283,6 @@ txtWrapWith settings s =
                      | otherwise = l
       case force theLines of
           [] -> return emptyResult
-          [one] -> return $ emptyResult & imageL .~ (V.text' (c^.attrL) one)
           multiple ->
               let maxLength = maximum $ safeTextWidth <$> multiple
                   padding = V.charFill (c^.attrL) ' ' (c^.availWidthL - maxLength) (length lineImgs)
@@ -806,7 +807,7 @@ vLimit h p =
 -- defers to the limited widget horizontally.
 vLimitPercent :: Int -> Widget n -> Widget n
 vLimitPercent h' p =
-    Widget (vSize p) Fixed $ do
+    Widget (hSize p) Fixed $ do
       let h = clamp 0 100 h'
       ctx <- getContext
       let usableHeight = ctx^.availHeightL

@@ -2,6 +2,47 @@
 Brick changelog
 ---------------
 
+0.52.1
+------
+
+Bug fixes:
+ * Attribute map lookups now merge styles in addition to merging colors
+   (see `eb857e6bb176e119ac76f5e2af475f1b49812088`).
+ * `txtWrapWith` now pads in the single-line case (see also
+   `926d317c46b19d4e576748891a1702080287aa03`, #234, and #263)
+
+0.52
+----
+
+API changes:
+ * EventM now provides a MonadFail instance
+ * EventM now provides MonadMask, MonadCatch, and MonadThrow instances
+   (thanks Fraser Tweedale)
+
+Other changes:
+ * The FileBrowser now has support for vi-style bindings in addition to
+   its previous bindings. New bindings include:
+   * `j`/`k`: next/previous element
+   * `C-n`/`C-p`: page down/up
+   * `C-d`/`C-u`: half page down/up
+   * `g`: select first entry
+   * `G`: select last entry
+
+0.51
+----
+
+API changes:
+ * Added Brick.Focus.focusRingToList, which returns all of the elements
+   in a focus ring as a list, starting with the focused entry and
+   wrapping around (#257; thanks @4eUeP)
+
+Bug fixes:
+ * Fix Brick.Widgets.FileBrowser.fileExtensionMatch to match directories
+   and also match symlinks that link to directories (thanks @YVee1)
+
+Other changes:
+ * Added demonstration program screenshot gallery (thanks @drola)
+
 0.50.1
 ------
 

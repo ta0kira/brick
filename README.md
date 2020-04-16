@@ -61,6 +61,7 @@ at these projects:
  * [`solitaire`](https://github.com/ambuc/solitaire), the card game
  * [`sudoku-tui`](https://github.com/evanrelf/sudoku-tui), a Sudoku implementation
  * [`summoner-tui`](https://github.com/kowainik/summoner/tree/master/summoner-tui), an interactive frontend to the Summoner tool
+ * [`wrapping-editor`](https://github.com/ta0kira/wrapping-editor), an embeddable editor with support for Brick
 
 These third-party packages also extend `brick`:
 
@@ -94,7 +95,7 @@ Documentation for `brick` comes in a variety of forms:
 * [The official brick user guide](https://github.com/jtdaugherty/brick/blob/master/docs/guide.rst)
 * [Samuel Tay's brick tutorial](https://github.com/jtdaugherty/brick/blob/master/docs/samtay-tutorial.md)
 * Haddock (all modules)
-* [Demo programs](https://github.com/jtdaugherty/brick/blob/master/programs)
+* [Demo programs](https://github.com/jtdaugherty/brick/blob/master/programs) ([Screenshots](https://github.com/jtdaugherty/brick/blob/master/docs/programs-screenshots.md))
 * [FAQ](https://github.com/jtdaugherty/brick/blob/master/FAQ.md)
 
 Feature Overview

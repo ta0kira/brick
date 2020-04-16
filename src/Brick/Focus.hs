@@ -10,6 +10,7 @@ module Brick.Focus
   , focusGetCurrent
   , focusSetCurrent
   , focusRingLength
+  , focusRingToList
   , focusRingCursor
   , withFocusRing
   , focusRingModify
@@ -80,6 +81,14 @@ focusSetCurrent n r@(FocusRing l) =
 -- | Get the size of the FocusRing.
 focusRingLength :: FocusRing n -> Int
 focusRingLength (FocusRing l) = C.size l
+
+-- | Return all of the entries in the focus ring, starting with the
+-- currently-focused entry and wrapping around the ring.
+--
+-- For example, if a ring contains A, B, C, and D, and the current entry
+-- is B, the result will be [B, C, D, A].
+focusRingToList :: FocusRing n -> [n]
+focusRingToList (FocusRing l) = C.rightElements l
 
 -- | Modify the internal circular list structure of a focus ring
 -- directly. This function permits modification of the circular list
